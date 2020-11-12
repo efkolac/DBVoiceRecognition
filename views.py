@@ -62,5 +62,7 @@ def audio_add_page():
                     print("Converted Audio Is : \n" + r.recognize_google(audio))
                 except Exception as e:
                     print("Error {} : ".format(e))
-        Database.save_content(111, r.recognize_google(audio),uploaded_file.filename)
+        lol = 58
+        save_content(lol, r.recognize_google(audio),uploaded_file.filename)
+        print("audio ekleme calisti")
         return render_template("audio.html", file_name=uploaded_file.filename, content=r.recognize_google(audio))
