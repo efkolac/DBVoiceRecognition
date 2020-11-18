@@ -18,13 +18,20 @@
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('movies_page') }}">List movies</a>
           </span>
-
+          <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('login_page') }}">Login</a>
+          </span>
+            {% if session['id'] %}
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('audio_add_page') }}">Add audio</a>
           </span>
                     <span class="navbar-item">
-            <a class="button is-link" href="{{ url_for('login_page') }}">Login</a>
+            <a class="button is-link" href="{{ url_for('add_text_page') }}">Add text</a>
           </span>
+          <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('logout_page') }}">logout</a>
+          </span>
+          {% endif %}
         </div>
       </nav>
     </header>

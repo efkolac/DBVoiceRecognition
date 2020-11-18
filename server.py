@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 import views
 import mysql.connector
 from flask_login import LoginManager
@@ -30,7 +30,8 @@ def create_app():
     #mycursor = mydb.cursor()
     #mycursor.execute(statement)
     app.add_url_rule("/login", view_func=views.login_page, methods=["GET", "POST"])
-#   app.add_url_rule("/logout", view_func=views.logout_page)
+    app.add_url_rule("/logout", view_func=views.logout_page)
+    app.add_url_rule("/add_text", view_func=views.add_text_page)
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/movies", view_func=views.movies_page)
     app.add_url_rule("/movies/<int:movie_key>", view_func=views.movie_page)
@@ -38,10 +39,12 @@ def create_app():
     app.add_url_rule("/audio", view_func=views.audio_add_page, methods=["GET", "POST"])
     lm.init_app(app)
     lm.login_view = "login_page"
+
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
+    app.secret_key = "123"
     port = app.config.get("PORT", 5000)
     app.run(host="127.0.0.1", port=port)

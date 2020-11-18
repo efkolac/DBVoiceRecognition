@@ -5,6 +5,7 @@ import speech_recognition as sr
 from database import *
 import flask_mysqldb
 
+
 def home_page():
     today = datetime.today()
     day_name = today.strftime("%A")
@@ -44,6 +45,7 @@ def movie_add_page():
 
 
 def audio_add_page():
+
     if request.method == "GET":
         return render_template("audio.html")
     else:
@@ -81,15 +83,34 @@ def login_page():
 
         if account:
             # Create session data, we can access this data in other routes
+
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
+            session['id'] = account[0] #account id
+            session['username'] = account[1] #account name
             # Redirect to home page
-            return 'Logged in successfully!'
+            return render_template("home.html", day=session['username'])
         else:
             print("user does not exist")
 
         # If account exists in accounts table in out database
     return render_template('login.html', msg='')
+
+
+def logout_page():
+    # Remove session data, this will log the user out
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+   # Redirect to login page
+    day_name = "dayssss"
+    return render_template("home.html", day=day_name)
+
+
+def add_text_page():
+    title = request.form["title"]
+    data = request.form["data"]
+    save_text(title,data)
+    return render_template("data_add.html")
+
 
 

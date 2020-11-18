@@ -59,3 +59,15 @@ def check_user(user_name, user_password):
     return account
 
 
+def save_text(title, data):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "insert into texts values ('{}','{}');".format(title, data)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "text saved"
+
