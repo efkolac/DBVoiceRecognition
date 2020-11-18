@@ -86,6 +86,8 @@ def login_page():
 
             session['loggedin'] = True
             session['id'] = account[0] #account id
+            print("id",session['id'])
+            print("account",account)
             session['username'] = account[1] #account name
             # Redirect to home page
             return render_template("home.html", day=session['username'])
@@ -107,10 +109,22 @@ def logout_page():
 
 
 def add_text_page():
-    title = request.form["title"]
-    data = request.form["data"]
-    save_text(title,data)
-    return render_template("data_add.html")
+    if request.method == "GET":
+        return render_template("data_add.html")
+
+    else:
+        title = request.form["title"]
+        data = request.form["data"]
+        save_text(title,data)
+        return render_template("data_add.html")
+
+
+def profile_page():
+    user_id = session['id']
+    info = retrieve_user(user_id)
+    name = info[1]
+    password = info[2]
+    return render_template("profile.html",name = name, password = password)
 
 
 

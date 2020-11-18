@@ -65,9 +65,22 @@ def save_text(title, data):
         user="root",
         password="12345679",
         database="newdb")
-    statement = "insert into texts values ('{}','{}');".format(title, data)
+    statement = "insert into texts (data_content, data_title)values ('{}','{}');".format(title, data)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
     return "text saved"
+
+
+def retrieve_user(user_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from people where (id = '{}');".format(user_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    user = mycursor.fetchone()
+    return user
 
