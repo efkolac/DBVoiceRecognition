@@ -3,11 +3,6 @@ import mysql.connector
 import views
 
 
-def __init__(self):
-    self.movies = {}
-    self._last_movie_key = 0
-
-
 def add_movie(self, movie):
     self._last_movie_key += 1
     self.movies[self._last_movie_key] = movie
@@ -35,16 +30,32 @@ def get_movies(self):
     return movies
 
 
-def save_content(content_id, content_info, content_title):
-    statement ="insert into content (content_id, content_info, content_title) values ('{}','{}','{}');"\
-    .format(content_id,content_info,content_title)
+def save_content(content_info, content_title, user_id):
+    statement ="insert into content (content_info, content_title,user_id) values ('{}','{}','{}');"\
+    .format(content_info,content_title,user_id)
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
         password="12345679",
-        database="dbdeneme"
+        database="newdb"
     )
     print(mydb)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
+    mydb.commit()
     return "congrats"
+
+
+def check_user(user_name, user_password):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from people where user_name = '{}' and  user_password = '{}';".format(user_name,user_password)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    account = mycursor.fetchone()
+    return account
+
+

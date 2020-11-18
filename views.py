@@ -1,8 +1,9 @@
 from datetime import datetime
 from movie import Movie
-from flask import render_template,current_app, request, redirect, url_for
+from flask import render_template,current_app, request, redirect, url_for, session
 import speech_recognition as sr
 from database import *
+import flask_mysqldb
 
 def home_page():
     today = datetime.today()
@@ -50,7 +51,7 @@ def audio_add_page():
         if uploaded_file.filename != '':
             uploaded_file.save(uploaded_file.filename)
             print("name of the file that uploaded",uploaded_file.filename)
-            print("type of the file name",type(uploaded_file))
+            print("type of the file name", type(uploaded_file))
             sound = uploaded_file.filename
             r = sr.Recognizer()
             with sr.AudioFile(sound) as source:
@@ -62,7 +63,33 @@ def audio_add_page():
                     print("Converted Audio Is : \n" + r.recognize_google(audio))
                 except Exception as e:
                     print("Error {} : ".format(e))
-        lol = 58
-        save_content(lol, r.recognize_google(audio),uploaded_file.filename)
+
+        user_id = 7
+        save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
         print("audio ekleme calisti")
         return render_template("audio.html", file_name=uploaded_file.filename, content=r.recognize_google(audio))
+
+
+def login_page():
+    # Output message if something goes wrong...
+    msg = 'this is for variable msg'
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        # Create variables for easy access
+        username = request.form['username']
+        password = request.form['password']
+        account = check_user(username,password)
+
+        if account:
+            # Create session data, we can access this data in other routes
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['username'] = account['username']
+            # Redirect to home page
+            return 'Logged in successfully!'
+        else:
+            print("user does not exist")
+
+        # If account exists in accounts table in out database
+    return render_template('login.html', msg='')
+
+
