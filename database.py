@@ -84,3 +84,15 @@ def retrieve_user(user_id):
     user = mycursor.fetchone()
     return user
 
+
+def get_texts():
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from texts"
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    texts = mycursor.fetchone()
+    return texts

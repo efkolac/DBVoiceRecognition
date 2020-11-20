@@ -34,6 +34,7 @@ def create_app():
     app.add_url_rule("/profile", view_func=views.profile_page)
     app.add_url_rule("/add_text", view_func=views.add_text_page, methods=["GET", "POST"])
     app.add_url_rule("/", view_func=views.home_page)
+    app.add_url_rule("/texts", view_func=views.texts_page)
     app.add_url_rule("/movies", view_func=views.movies_page)
     app.add_url_rule("/movies/<int:movie_key>", view_func=views.movie_page)
     app.add_url_rule("/new-movie", view_func=views.movie_add_page, methods=["GET", "POST"])

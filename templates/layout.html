@@ -21,13 +21,32 @@
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('login_page') }}">Login</a>
           </span>
-            {% if session['id'] %}
+            {% if session['degree'] == 'admin' %}
+                    </span>
+                    <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('texts_page') }}">Texts</a>
+          </span>
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('audio_add_page') }}">Add audio</a>
           </span>
                     <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('add_text_page') }}">Add text</a>
           </span>
+          <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('logout_page') }}">Logout</a>
+          </span>
+                    <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('profile_page') }}">Profile</a>
+          </span>
+          {% endif %}
+                      {% if session['degree'] == 'user' %}
+          <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('texts_page') }}">Texts</a>
+          </span>
+          <span class="navbar-item">
+            <a class="button is-link" href="{{ url_for('audio_add_page') }}">Add audio</a>
+          </span>
+
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('logout_page') }}">Logout</a>
           </span>

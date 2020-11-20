@@ -83,8 +83,8 @@ def login_page():
 
         if account:
             # Create session data, we can access this data in other routes
-
             session['loggedin'] = True
+            session['degree'] = account[6]
             session['id'] = account[0] #account id
             print("id",session['id'])
             print("account",account)
@@ -103,7 +103,8 @@ def logout_page():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
-   # Redirect to login page
+    session.pop('degree', None)
+# Redirect to login page
     day_name = "dayssss"
     return render_template("home.html", day=day_name)
 
@@ -125,6 +126,13 @@ def profile_page():
     name = info[1]
     password = info[2]
     return render_template("profile.html",name = name, password = password)
+
+
+def texts_page():
+    texts = get_texts()
+    print("texts", texts)
+    return render_template("texts.html", texts=texts)
+
 
 
 
