@@ -94,5 +94,17 @@ def get_texts():
     statement = "select * from texts"
     mycursor = mydb.cursor()
     mycursor.execute(statement)
-    texts = mycursor.fetchone()
+    texts = mycursor.fetchall()
     return texts
+
+def get_text(text_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from texts where (id = '{}');".format(text_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    text = mycursor.fetchall()
+    return text

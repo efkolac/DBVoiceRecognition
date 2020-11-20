@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Movie{% endblock %}
+{% block content %}
+    <h1 class="title">Texts</h1>
+
+    <table class="table">
+                {% for key,title,info in text %}
+
+      <tr>
+        <td>{{ title }}</td>
+        <td>{{ info }}</td>
+      </tr>
+                {% endfor %}
+
+    </table>
+{% endblock %}

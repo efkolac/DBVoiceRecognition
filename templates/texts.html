@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 {% block title %}Movie list{% endblock %}
 {% block content %}
-    <h1 class="title">Movies</h1>
+    <h1 class="title">Texts</h1>
 
-
+      <table class="table is-striped is-fullwidth">
+        {% for text in texts %}
+        <tr>
+          <td>{{ text[1] }}</td>
+          <td><a href="{{ url_for('text_page', text_key=text[0]) }}">{{ text[1] }}</a></td>
+        </tr>
+        {% endfor %}
+      </table>
 {% endblock %}

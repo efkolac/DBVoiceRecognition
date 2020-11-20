@@ -130,8 +130,18 @@ def profile_page():
 
 def texts_page():
     texts = get_texts()
-    print("texts", texts)
+    for text in texts:
+        print("text", text[1])
+    #print("texts", texts)
     return render_template("texts.html", texts=texts)
+
+
+def text_page(text_key):
+    text = get_text(text_key)
+    print("text",text)
+    return render_template("text.html", text=text)
+
+
 
 
 
