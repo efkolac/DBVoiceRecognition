@@ -1,6 +1,7 @@
 from movie import Movie
 import mysql.connector
 import views
+from difflib import SequenceMatcher
 
 
 def add_movie(self, movie):
@@ -65,7 +66,7 @@ def save_text(title, data):
         user="root",
         password="12345679",
         database="newdb")
-    statement = "insert into texts (data_content, data_title)values ('{}','{}');".format(title, data)
+    statement = "insert into texts (data_content, data_title)values ('{}','{}');".format(data, title)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
@@ -97,6 +98,7 @@ def get_texts():
     texts = mycursor.fetchall()
     return texts
 
+
 def get_text(text_id):
     mydb = mysql.connector.connect(
         host="localhost",
@@ -108,3 +110,10 @@ def get_text(text_id):
     mycursor.execute(statement)
     text = mycursor.fetchall()
     return text
+
+
+def compare(text, audio_text):
+    print("text in compare",text)
+    print("audio in compare",audio_text)
+    result = SequenceMatcher(None, text, audio_text).ratio()
+    return result

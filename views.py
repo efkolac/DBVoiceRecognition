@@ -137,12 +137,24 @@ def texts_page():
 
 
 def text_page(text_key):
-    text = get_text(text_key)
-    print("text",text)
-    return render_template("text.html", text=text)
-
-
-
-
-
-
+    if request.method == "GET":
+        text = get_text(text_key)
+        print("text",text)
+        return render_template("text.html", text=text)
+    else:
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            uploaded_file.save(uploaded_file.filename)
+            sound = uploaded_file.filename
+            r = sr.Recognizer()
+            with sr.AudioFile(sound) as source:
+                r.adjust_for_ambient_noise(source)
+                audio = r.listen(source)
+        user_id = session['id']
+        save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
+        print("audio ekleme calisti")
+        text = get_text(text_key)
+        text_info = text[0][1]
+        text_title = text[0][2]
+        result = compare(text_info, r.recognize_google(audio))
+        return render_template("results.html", title=text_title, result=result)

@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% block title %}Movie{% endblock %}
+{% block title %}Text{% endblock %}
 {% block content %}
     <h1 class="title">Texts</h1>
 
     <table class="table">
-                {% for key,title,info in text %}
+                {% for key,info,title in text %}
 
       <tr>
         <td>{{ title }}</td>
@@ -13,4 +13,17 @@
                 {% endfor %}
 
     </table>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+                      <p class="subtitle">Name of the file is {{ file_name }}!</p>
+            <p class="subtitle">Content of the file is: {{ content }}!</p>
+          <h1 class="title">Audio to be uploaded</h1>
+              <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+        </div>
+      </div>
+    </section>
 {% endblock %}
