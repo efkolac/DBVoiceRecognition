@@ -41,6 +41,7 @@ def save_content(content_info, content_title, user_id):
         database="newdb"
     )
     print(mydb)
+    print("info is ",content_info,content_title,user_id)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()

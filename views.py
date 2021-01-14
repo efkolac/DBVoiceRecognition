@@ -1,15 +1,12 @@
 from datetime import datetime
-from movie import Movie
 from flask import render_template,current_app, request, redirect, url_for, session
 import speech_recognition as sr
 from database import *
-import flask_mysqldb
 
 
 def home_page():
-    today = datetime.today()
-    day_name = today.strftime("%A")
-    return render_template("home.html", day=day_name)
+
+    return render_template("home.html")
 
 
 def movies_page():
@@ -66,7 +63,7 @@ def audio_add_page():
                 except Exception as e:
                     print("Error {} : ".format(e))
 
-        user_id = 7
+        user_id = 10
         save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
         print("audio ekleme calisti")
         return render_template("audio.html", file_name=uploaded_file.filename, content=r.recognize_google(audio))

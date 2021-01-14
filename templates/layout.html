@@ -18,11 +18,12 @@
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('movies_page') }}">List movies</a>
           </span>
+          {% if session ['degree'] == NULL %}
           <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('login_page') }}">Login</a>
           </span>
+          {% endif %}
             {% if session['degree'] == 'admin' %}
-                    </span>
                     <span class="navbar-item">
             <a class="button is-link" href="{{ url_for('texts_page') }}">Texts</a>
           </span>
@@ -68,7 +69,7 @@
 
     <footer class="footer">
       <div class="content">
-        <small>&copy; 2015-2018, Kilgore Trout</small>
+        <small>&copy; 2020-2021 Emre Faruk Kolac</small>
       </div>
     </footer>
   </body>
