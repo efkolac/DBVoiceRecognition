@@ -90,7 +90,7 @@ def login_page():
         else:
             print("user does not exist")
         # If account exists in accounts table in out database
-    return render_template('login.html', msg='')
+    return render_template('login.html')
 
 
 def logout_page():

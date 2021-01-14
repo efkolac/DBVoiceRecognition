@@ -5,14 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>DatabaseDesign</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/css/Article-List.css">
-    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Corporate-Footer-Clean.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/ionicons.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Corporate-Footer-Clean.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+
+
 </head>
 
 <body>
@@ -23,7 +21,7 @@
                     <line x1="12" y1="6" x2="12" y2="18"></line>
                     <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
                 </svg></a>
-            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="login.html" style="font-size: 26px;color: rgb(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
+            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
         </div>
     </nav>
     <section class="welcome" style="padding-right: 1px;">
@@ -43,7 +41,7 @@
                 <h1></h1>
             </div>
         </div>
-        <div class="col-md-6 left-column" style="background: url(&quot;assets/img/forsite2.jpg&quot;) center / contain no-repeat;margin-top: 20px;/*margin-left: 10px;*/margin-bottom: 20px;/*margin-right: 20px;*/">
+        <div class="col-md-6 left-column" style="background: url(&quot;assets/img/forsite2.jpg&quot;) center / contain no-repeat;margin-top: 20px;margin-bottom: 20px;">
             <div class="second-pic-col"></div>
         </div>
         <div class="col-md-6 left-column">
