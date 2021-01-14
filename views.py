@@ -5,7 +5,6 @@ from database import *
 
 
 def home_page():
-
     return render_template("home.html")
 
 
@@ -90,7 +89,6 @@ def login_page():
             return render_template("home.html", day=session['username'])
         else:
             print("user does not exist")
-
         # If account exists in accounts table in out database
     return render_template('login.html', msg='')
 
@@ -104,6 +102,10 @@ def logout_page():
 # Redirect to login page
     day_name = "dayssss"
     return render_template("home.html", day=day_name)
+
+
+def register_page():
+    return render_template("register.html")
 
 
 def add_text_page():
