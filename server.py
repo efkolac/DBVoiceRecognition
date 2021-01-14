@@ -41,6 +41,7 @@ def create_app():
     app.add_url_rule("/movies/<int:movie_key>", view_func=views.movie_page)
     app.add_url_rule("/new-movie", view_func=views.movie_add_page, methods=["GET", "POST"])
     app.add_url_rule("/audio", view_func=views.audio_add_page, methods=["GET", "POST"])
+    app.add_url_rule("/contact_us", view_func=views.contact_us_page, methods=["GET", "POST"])
     lm.init_app(app)
     lm.login_view = "login_page"
 

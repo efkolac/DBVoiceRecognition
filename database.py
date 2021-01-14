@@ -48,13 +48,13 @@ def save_content(content_info, content_title, user_id):
     return "congrats"
 
 
-def check_user(user_name, user_password):
+def check_user(email, user_password):
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
         password="12345679",
         database="newdb")
-    statement = "select * from people where user_name = '{}' and  user_password = '{}';".format(user_name,user_password)
+    statement = "select * from people where email = '{}' and  user_password = '{}';".format(email,user_password)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     account = mycursor.fetchone()

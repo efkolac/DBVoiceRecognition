@@ -21,7 +21,17 @@
                     <line x1="12" y1="6" x2="12" y2="18"></line>
                     <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
                 </svg></a>
-            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
+{% if session['degree'] == 'user' %}
+            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a>
+                <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
+                            <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a></div>
+
+          {% endif %}
+{% if session['degree'] == NULL %}
+                        <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
+
+          {% endif %}
+
         </div>
     </nav>
     <section class="welcome" style="padding-right: 1px;">
@@ -37,7 +47,7 @@
             </div>
         </div>
         <div class="col-md-6 left-column">
-            <div class="left-col-div" style="background: url(&quot;assets/img/forsite.jpg&quot;) center / cover;">
+            <div class="left-col-div" style="{{ url_for('static', filename='assets/img/forsite2.jpg') }}">
                 <h1></h1>
             </div>
         </div>
@@ -52,7 +62,7 @@
         </div>
     </div>
     <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
-        <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
+        <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="{{ url_for('contact_us_page') }}" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import render_template,current_app, request, redirect, url_for, session
 import speech_recognition as sr
 from database import *
-
+import smtplib
 
 def home_page():
     return render_template("home.html")
@@ -71,11 +71,12 @@ def audio_add_page():
 def login_page():
     # Output message if something goes wrong...
     msg = 'this is for variable msg'
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+    if request.method == 'POST':
         # Create variables for easy access
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        account = check_user(username,password)
+        print("it is in post part of login")
+        account = check_user(email, password)
 
         if account:
             # Create session data, we can access this data in other routes
@@ -86,7 +87,7 @@ def login_page():
             print("account",account)
             session['username'] = account[1] #account name
             # Redirect to home page
-            return render_template("home.html", day=session['username'])
+            return render_template("home.html",auth = "user")
         else:
             print("user does not exist")
         # If account exists in accounts table in out database
@@ -157,3 +158,18 @@ def text_page(text_key):
         text_title = text[0][2]
         result = compare(text_info, r.recognize_google(audio))
         return render_template("results.html", title=text_title, result=result)
+
+
+def contact_us_page():
+    if request.method == "GET":
+        return render_template("ContactUs.html")
+    else:
+        name = request.form['name']
+        email = request.form["email"]
+        message = request.form["message"]
+        all_message = name + email + message
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login("itudatabase21@gmail.com", "2-nh7@XM*x,MDKL")
+        server.sendmail("itudatabase21@gmail.com", "kolac@itu.edu.tr", all_message)
+        return render_template("ContactUs.html")
