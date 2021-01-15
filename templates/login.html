@@ -15,7 +15,7 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-md fixed-top bg-warning flex-fill">
-        <div class="container"><a href="home.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-a-b">
+        <div class="container"><a href="{{ url_for('home_page') }}"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-a-b">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M3 16v-5.5a2.5 2.5 0 0 1 5 0v5.5m0 -4h-5"></path>
                     <line x1="12" y1="6" x2="12" y2="18"></line>
@@ -36,9 +36,10 @@
     <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
         <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
     </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/smart-forms.min.js"></script>
+                <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/js/smart-forms.min.js') }}"></script>
+
 </body>
 
 </html>

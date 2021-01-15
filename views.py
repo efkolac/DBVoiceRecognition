@@ -2,42 +2,21 @@ from datetime import datetime
 from flask import render_template,current_app, request, redirect, url_for, session
 import speech_recognition as sr
 from database import *
-import smtplib
+from server import *
+
 
 def home_page():
     return render_template("home.html")
 
 
-def movies_page():
-    db = current_app.config["db"]
+def update_page():
     if request.method == "GET":
-        movies = db.get_movies()
-        return render_template("movies.html", movies=sorted(movies))
-    else:
-        form_movie_keys = request.form.getlist("movie_keys")
-        for form_movie_key in form_movie_keys:
-            db.delete_movie(int(form_movie_key))
-        return redirect(url_for("movies_page"))
+        p_name = session['username']
+        p_mail = session['email']
 
+        return render_template("update_profile.html", place_n=p_name, place_m=p_mail)
 
-def movie_page(movie_key):
-    db = current_app.config["db"]
-    movie = db.get_movie(movie_key)
-    return render_template("movie.html", movie=movie)
-
-
-def movie_add_page():
-    if request.method == "GET":
-        return render_template(
-            "movie_edit.html", min_year=1887, max_year=datetime.now().year
-        )
-    else:
-        form_title = request.form["title"]
-        form_year = request.form["year"]
-        movie = Movie(form_title, year=int(form_year) if form_year else None)
-        db = current_app.config["db"]
-        movie_key = db.add_movie(movie)
-        return redirect(url_for("movie_page", movie_key=movie_key))
+    return render_template("update_profile.html")
 
 
 def audio_add_page():
@@ -81,8 +60,9 @@ def login_page():
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['degree'] = account[6]
+            session['user_type'] = account[6]
             session['id'] = account[0] #account id
+            session['email'] = account[3]
             print("id",session['id'])
             print("account",account)
             session['username'] = account[1] #account name
@@ -99,14 +79,36 @@ def logout_page():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
-    session.pop('degree', None)
+    session.pop('user_type', None)
 # Redirect to login page
     day_name = "dayssss"
-    return render_template("home.html", day=day_name)
+    return render_template("home.html")
 
 
 def register_page():
-    return render_template("register.html")
+    if request.method == "GET":
+        print("in register get")
+        return render_template("register.html")
+    else:
+        park = request.form.get('type')  # returns on is checked, returns none otherwise
+        print("park is", park)
+        name = request.form["name"]
+        email = request.form["email"]
+        pw = request.form["password"]
+        pwr = request.form["password-repeat"]
+        user_type = request.form["user"]
+        if pw != pwr or check_user(name, email):
+            print("either pw is not right or user is already registered")
+            return render_template("register.html")
+        register_user(name, email, pw, user_type)
+        account = check_user(email, pw)
+
+        print("account is ", account)
+        session['loggedin'] = True
+        session['id'] = account[0]  # account id
+        session['user_type'] = account[6]
+        session['username'] = account[1]  # account name
+        return render_template("home.html")
 
 
 def add_text_page():
@@ -168,8 +170,4 @@ def contact_us_page():
         email = request.form["email"]
         message = request.form["message"]
         all_message = name + email + message
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login("itudatabase21@gmail.com", "2-nh7@XM*x,MDKL")
-        server.sendmail("itudatabase21@gmail.com", "kolac@itu.edu.tr", all_message)
         return render_template("ContactUs.html")

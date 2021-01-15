@@ -4,33 +4,6 @@ import views
 from difflib import SequenceMatcher
 
 
-def add_movie(self, movie):
-    self._last_movie_key += 1
-    self.movies[self._last_movie_key] = movie
-    return self._last_movie_key
-
-
-def delete_movie(self, movie_key):
-    if movie_key in self.movies:
-        del self.movies[movie_key]
-
-
-def get_movie(self, movie_key):
-    movie = self.movies.get(movie_key)
-    if movie is None:
-        return None
-    movie_ = Movie(movie.title, year=movie.year) #neden movie yerine movie_ kullandık
-    return movie_
-
-
-def get_movies(self):
-    movies = []
-    for movie_key, movie in self.movies.items():
-        movie_ = Movie(movie.title, year=movie.year)
-        movies.append((movie_key, movie_))
-    return movies
-
-
 def save_content(content_info, content_title, user_id):
     statement ="insert into content (content_info, content_title,user_id) values ('{}','{}','{}');"\
     .format(content_info,content_title,user_id)
@@ -118,3 +91,16 @@ def compare(text, audio_text):
     print("audio in compare",audio_text)
     result = SequenceMatcher(None, text, audio_text).ratio()
     return result
+
+
+def register_user(name, email, pw, degree):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "insert into people (user_name, user_password, email, user_type)values ('{}','{}','{}','{}');".format(name, email, pw, degree)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "user saved"
