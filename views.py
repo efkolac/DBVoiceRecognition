@@ -19,6 +19,38 @@ def update_page():
     return render_template("update_profile.html")
 
 
+def texts_page():
+    texts = get_texts()
+    print("in text page", texts)
+    return render_template("texts.html", texts=texts)
+
+
+def text_page(text_key):
+    if request.method == "GET":
+        text = get_text(text_key)
+        text_title = text[0][2]
+        text_content = text[0][1]
+        print("text page", text)
+        return render_template("text.html", text_title=text_title, text_content=text_content)
+    else:
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            uploaded_file.save(uploaded_file.filename)
+            sound = uploaded_file.filename
+            r = sr.Recognizer()
+            with sr.AudioFile(sound) as source:
+                r.adjust_for_ambient_noise(source)
+                audio = r.listen(source)
+        user_id = session['id']
+        save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
+        print("audio ekleme calisti")
+        text = get_text(text_key)
+        text_info = text[0][1]
+        text_title = text[0][2]
+        result = compare(text_info, r.recognize_google(audio))
+        return render_template("results.html", title=text_title, result=result)
+
+
 def audio_add_page():
 
     if request.method == "GET":
@@ -54,7 +86,6 @@ def login_page():
         # Create variables for easy access
         email = request.form['email']
         password = request.form['password']
-        print("it is in post part of login")
         account = check_user(email, password)
 
         if account:
@@ -128,38 +159,6 @@ def profile_page():
     name = info[1]
     password = info[2]
     return render_template("profile.html",name = name, password = password)
-
-
-def texts_page():
-    texts = get_texts()
-    for text in texts:
-        print("text", text[1])
-    #print("texts", texts)
-    return render_template("texts.html", texts=texts)
-
-
-def text_page(text_key):
-    if request.method == "GET":
-        text = get_text(text_key)
-        print("text",text)
-        return render_template("text.html", text=text)
-    else:
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            uploaded_file.save(uploaded_file.filename)
-            sound = uploaded_file.filename
-            r = sr.Recognizer()
-            with sr.AudioFile(sound) as source:
-                r.adjust_for_ambient_noise(source)
-                audio = r.listen(source)
-        user_id = session['id']
-        save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
-        print("audio ekleme calisti")
-        text = get_text(text_key)
-        text_info = text[0][1]
-        text_title = text[0][2]
-        result = compare(text_info, r.recognize_google(audio))
-        return render_template("results.html", title=text_title, result=result)
 
 
 def contact_us_page():

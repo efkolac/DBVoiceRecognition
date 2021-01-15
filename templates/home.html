@@ -23,6 +23,8 @@
                 </svg></a>
             <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-2">
             {% if session['user_type'] == 'student' %}
+                                            <a href="{{ url_for('texts_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Study</a>
+
                             <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
                             <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
 
@@ -52,7 +54,7 @@
                 <h1></h1>
             </div>
         </div>
-        <div class="col-md-6 left-column" style="background: url(static/assets/img/forsite2.jpg) center / contain no-repeat;margin-top: 20px;margin-bottom: 20px;">
+        <div class="col-md-6 left-column" style="background: url(forsite.jpg) center / contain no-repeat;margin-top: 20px;margin-bottom: 20px;">
             <div class="second-pic-col"></div>
         </div>
         <div class="col-md-6 left-column">

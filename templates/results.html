@@ -1,18 +1,43 @@
-{% extends "layout.html" %}
-{% block title %}Text{% endblock %}
-{% block content %}
-    <h1 class="title">Texts</h1>
+<!DOCTYPE html>
+<html>
 
-    <table class="table">
-      <tr>
-        <td>title</td>
-        <td>result</td>
-      </tr>
-      <tr>
-        <td>{{ title }}</td>
-        <td>{{ result }}</td>
-      </tr>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DatabaseDesign</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+</head>
 
-    </table>
+<body>
+    <nav class="navbar navbar-light navbar-expand-md fixed-top bg-warning flex-fill">
+        <div class="container"><a href="home.html"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-a-b">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M3 16v-5.5a2.5 2.5 0 0 1 5 0v5.5m0 -4h-5"></path>
+                    <line x1="12" y1="6" x2="12" y2="18"></line>
+                    <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
+                </svg></a>
+            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="register.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="login.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
+        </div>
+    </nav>
+    <section class="welcome" style="padding-right: 1px;">
+        <div>
+            <h1>Results</h1>
+        </div>
+    </section>
+    <div class="row no-gutters row1" style="padding-right: 120px;padding-left: 120px;background: #fefcd9;margin-right: 0px;height: 1100px;margin-left: 300px;margin-right: 300px;">
+        <div class="col-md-6 mx-auto left-column"></div>
+                <div class="col left-column">
+            <h4 class="text-left head-left-bot">{{title}}</h4>
+                    <h4 class="text-left head-left-bot">{{result}}</h4>
 
-{% endblock %}
+        </div>
+    </div>
+    <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
+        <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
+    </footer>
+            <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
