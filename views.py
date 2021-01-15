@@ -13,10 +13,14 @@ def update_page():
     if request.method == "GET":
         p_name = session['username']
         p_mail = session['email']
-
         return render_template("update_profile.html", place_n=p_name, place_m=p_mail)
-
-    return render_template("update_profile.html")
+    else:
+        first_name = request.form['first_name']
+        email = request.form['email']
+        password = request.form['password']
+        user_id = session['id']
+        update_user(first_name, email, password, user_id)
+        return render_template("update_profile.html", place_n=first_name, place_m=email)
 
 
 def texts_page():
@@ -42,13 +46,15 @@ def text_page(text_key):
                 r.adjust_for_ambient_noise(source)
                 audio = r.listen(source)
         user_id = session['id']
-        save_content(r.recognize_google(audio),uploaded_file.filename, user_id)
+        save_content(r.recognize_google(audio), uploaded_file.filename, user_id)
         print("audio ekleme calisti")
         text = get_text(text_key)
         text_info = text[0][1]
         text_title = text[0][2]
-        result = compare(text_info, r.recognize_google(audio))
-        return render_template("results.html", title=text_title, result=result)
+        result = compare(text_info, r.recognize_google(audio)) * 100
+        save_score(result, user_id, text_title)
+        records = get_pre_scores(user_id, text_title)
+        return render_template("results.html", title=text_title, result=result, records=records)
 
 
 def audio_add_page():
@@ -144,21 +150,20 @@ def register_page():
 
 def add_text_page():
     if request.method == "GET":
-        return render_template("data_add.html")
+        return render_template("add_text.html")
 
     else:
+        content = request.files['file']
         title = request.form["title"]
-        data = request.form["data"]
-        save_text(title,data)
-        return render_template("data_add.html")
-
-
-def profile_page():
-    user_id = session['id']
-    info = retrieve_user(user_id)
-    name = info[1]
-    password = info[2]
-    return render_template("profile.html",name = name, password = password)
+        content.save(content.filename)
+        content.read()
+        content.seek(0)
+        sound = content.filename
+        print("name of the file that uploaded", content.filename)
+        print("type of the file name", type(content))
+        print("soun is", sound)
+        #save_text(title, content)
+        return render_template("add_text.html")
 
 
 def contact_us_page():
@@ -170,3 +175,12 @@ def contact_us_page():
         message = request.form["message"]
         all_message = name + email + message
         return render_template("ContactUs.html")
+
+
+def delete_text_page():
+    if request.method == "GET":
+        return render_template("delete_text.html")
+    else:
+        title = request.form['title']
+        delete_article(title)
+        return render_template("delete_text.html")

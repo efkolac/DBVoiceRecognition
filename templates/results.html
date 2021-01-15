@@ -28,9 +28,15 @@
     <div class="row no-gutters row1" style="padding-right: 120px;padding-left: 120px;background: #fefcd9;margin-right: 0px;height: 1100px;margin-left: 300px;margin-right: 300px;">
         <div class="col-md-6 mx-auto left-column"></div>
                 <div class="col left-column">
-            <h4 class="text-left head-left-bot">{{title}}</h4>
+                    <h4 class="text-left head-left-bot">{{title}}</h4>
                     <h4 class="text-left head-left-bot">{{result}}</h4>
+                    {% if records %}
+                            <h4 class="text-left head-left-bot">Previous scores in this article</h4>
+                                {% for id,grade,user_id,content_title in records %}
+                            <h4 class="text-left head-left-bot">{{grade}}</h4>
 
+                                {% endfor %}
+                    {% endif %}
         </div>
     </div>
     <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">

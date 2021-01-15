@@ -43,7 +43,6 @@ def create_app():
     #mycursor.execute(statement)
     app.add_url_rule("/login", view_func=views.login_page, methods=["GET", "POST"])
     app.add_url_rule("/logout", view_func=views.logout_page)
-    app.add_url_rule("/profile", view_func=views.profile_page)
     app.add_url_rule("/add_text", view_func=views.add_text_page, methods=["GET", "POST"])
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/register", view_func=views.register_page, methods=["GET", "POST"])
@@ -52,6 +51,8 @@ def create_app():
     app.add_url_rule("/audio", view_func=views.audio_add_page, methods=["GET", "POST"])
     app.add_url_rule("/contact_us", view_func=views.contact_us_page, methods=["GET", "POST"])
     app.add_url_rule("/update_page", view_func=views.update_page, methods=["GET", "POST"])
+    app.add_url_rule("/delete_text", view_func=views.delete_text_page, methods=["GET", "POST"])
+
     #app.add_url_rule("/result", view_func=views.result)
     #lm.init_app(app)
     #lm.login_view = "login_page"

@@ -33,6 +33,18 @@
             <a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a>
                 <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a>
           {% endif %}
+                {% if session['user_type'] == 'teacher' %}
+                                            <a href="{{ url_for('add_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Add article</a>
+
+                            <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                            <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                                {% if session['user_type'] == 'admin' %}
+                                            <a href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete Article</a>
+
+                            <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                            <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
 
                             </div>
             </div>

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>DatabaseDesign</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Login-Form-Clean.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/ionicons.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Corporate-Footer-Clean.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Article-List.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
 </head>
 
 <body>
@@ -20,28 +20,27 @@
                     <line x1="12" y1="6" x2="12" y2="18"></line>
                     <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
                 </svg></a>
-            <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="register.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="login.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
         </div>
     </nav>
-    <section class="welcome" style="padding-right: 1px;">
-        <div></div>
-    </section>
-    <div class="row no-gutters row1" style="padding-right: 120px;padding-left: 120px;background: #fefcd9;margin-right: 0px;height: 1100px;margin-left: 300px;margin-right: 300px;">
-        <div class="col">
-            <ul class="list-group">
-                              {% for text in texts %}
+    <div class="login-clean">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration">
+                <h2>Name of the article to delete</h2>
+            </div>
+                <div class="form-group"><input class="form-control" type="name" name="title" placeholder="Title of the article" required=""></div>
+                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Send</button></div>
 
-                <li class="list-group-item" ><span class="d-xl-flex justify-content-xl-center" ><a href="{{ url_for('text_page', text_key=text[0]) }}">{{ text[2] }}</a></span></li>
-                              {% endfor %}
-
-            </ul>
-        </div>
+</form>
+        </form>
     </div>
     <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
         <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
     </footer>
-            <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
-            <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/js/smart-forms.min.js') }}"></script>
 </body>
 
 </html>

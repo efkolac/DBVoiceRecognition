@@ -104,3 +104,56 @@ def register_user(name, email, pw, degree):
     mycursor.execute(statement)
     mydb.commit()
     return "user saved"
+
+
+def save_score(grade, user_id, content_title):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "insert into scores (grade, user_id, content_title)values ('{}','{}','{}');".format(grade, user_id, content_title)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "score saved"
+
+
+def get_pre_scores(user_id, content_title):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from scores where (user_id = '{}' and content_title ='{}');".format(user_id, content_title)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    text = mycursor.fetchall()
+    return text
+
+
+def delete_article(title):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "delete from texts where (data_title = '{}');".format(title)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
+def update_user(name, email, password, user_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "update people set user_name = '{}', user_password = '{}', email = '{}' where (id = '{}');".format(name, password, email, user_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    print("lololo")
+    return "succesful"
