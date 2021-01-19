@@ -1,7 +1,6 @@
-from movie import Movie
 import mysql.connector
-import views
 from difflib import SequenceMatcher
+from essential_generators import DocumentGenerator
 
 
 def save_content(content_info, content_title, user_id):
@@ -27,7 +26,7 @@ def check_user(email, user_password):
         user="root",
         password="12345679",
         database="newdb")
-    statement = "select * from people where email = '{}' and  user_password = '{}';".format(email,user_password)
+    statement = "select * from people where email = '{}' and  user_password = '{}';".format(email, user_password)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     account = mycursor.fetchone()
@@ -93,17 +92,33 @@ def compare(text, audio_text):
     return result
 
 
+def wrong_words(texts, audio_text):
+    audio = audio_text.split()
+    text = texts.split()
+    mylist = []
+    for i in range(len(audio)):
+        if text[i] in audio:
+            print("this is in org text", text[i])
+        else:
+            mylist.append(text[i])
+    print("wrong words are ", mylist)
+    return mylist
+
+
+
 def register_user(name, email, pw, degree):
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
         password="12345679",
         database="newdb")
-    statement = "insert into people (user_name, user_password, email, user_type)values ('{}','{}','{}','{}');".format(name, email, pw, degree)
+    statement = "insert into people (user_name, user_password, email, user_type)values ('{}','{}','{}','{}');".format(name, pw, email, degree)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
-    return "user saved"
+    account = check_user(email, pw)
+
+    return account
 
 
 def save_score(grade, user_id, content_title):
@@ -132,6 +147,21 @@ def get_pre_scores(user_id, content_title):
     return text
 
 
+def update_user(name, email, password, user_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    #statement = "update people set user_name = '{}', user_password = '{}', email = '{}' where (id = '{}');".format(name, password, email, user_id)
+    statement = "delete from people where (id = '{}');".format(18)
+
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
 def delete_article(title):
     mydb = mysql.connector.connect(
         host="localhost",
@@ -145,15 +175,60 @@ def delete_article(title):
     return "succesful"
 
 
-def update_user(name, email, password, user_id):
+def delete_user(mail):
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
         password="12345679",
         database="newdb")
-    statement = "update people set user_name = '{}', user_password = '{}', email = '{}' where (id = '{}');".format(name, password, email, user_id)
+    statement = "delete from people where (email = '{}');".format(mail)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
-    print("lololo")
     return "succesful"
+
+
+def delete_audio(id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "delete from content where (id = '{}');".format(id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
+def delete_score(id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "delete from scores where (id = '{}');".format(id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
+def database_puffer(i):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    gen = DocumentGenerator()
+    while i:
+        content = gen.paragraph()[:100]
+        title = gen.word()
+        print("content is ", content)
+        statement = "insert into texts (data_content, data_title)values ('{}','{}');".format(content, title)
+        mycursor = mydb.cursor()
+        mycursor.execute(statement)
+        mydb.commit()
+        i = i - 1
+    return "score saved"
+

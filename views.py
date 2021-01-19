@@ -1,11 +1,10 @@
-from datetime import datetime
-from flask import render_template,current_app, request, redirect, url_for, session
+from flask import render_template, request, session
 import speech_recognition as sr
 from database import *
-from server import *
 
 
 def home_page():
+    #database_puffer(100)
     return render_template("home.html")
 
 
@@ -15,7 +14,7 @@ def update_page():
         p_mail = session['email']
         return render_template("update_profile.html", place_n=p_name, place_m=p_mail)
     else:
-        first_name = request.form['first_name']
+        first_name = request.form['name']
         email = request.form['email']
         password = request.form['password']
         user_id = session['id']
@@ -25,6 +24,8 @@ def update_page():
 
 def texts_page():
     texts = get_texts()
+    if len(texts) > 20:
+        texts = texts[:20]
     print("in text page", texts)
     return render_template("texts.html", texts=texts)
 
@@ -52,9 +53,10 @@ def text_page(text_key):
         text_info = text[0][1]
         text_title = text[0][2]
         result = compare(text_info, r.recognize_google(audio)) * 100
+        words = wrong_words(text_info, r.recognize_google(audio))
         save_score(result, user_id, text_title)
         records = get_pre_scores(user_id, text_title)
-        return render_template("results.html", title=text_title, result=result, records=records)
+        return render_template("results.html", title=text_title, result=result, records=records, words=words)
 
 
 def audio_add_page():
@@ -97,7 +99,7 @@ def login_page():
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['user_type'] = account[6]
+            session['user_type'] = account[4]
             session['id'] = account[0] #account id
             session['email'] = account[3]
             print("id",session['id'])
@@ -125,7 +127,7 @@ def logout_page():
 def register_page():
     if request.method == "GET":
         print("in register get")
-        return render_template("register.html")
+        return render_template("register.html", msg = "")
     else:
         park = request.form.get('type')  # returns on is checked, returns none otherwise
         print("park is", park)
@@ -136,14 +138,12 @@ def register_page():
         user_type = request.form["user"]
         if pw != pwr or check_user(name, email):
             print("either pw is not right or user is already registered")
-            return render_template("register.html")
-        register_user(name, email, pw, user_type)
-        account = check_user(email, pw)
+            return render_template("register.html", msg="either pw is not right or user is already registered")
+        account = register_user(name, email, pw, user_type)
 
-        print("account is ", account)
         session['loggedin'] = True
         session['id'] = account[0]  # account id
-        session['user_type'] = account[6]
+        session['user_type'] = account[4]
         session['username'] = account[1]  # account name
         return render_template("home.html")
 
@@ -155,13 +155,7 @@ def add_text_page():
     else:
         content = request.files['file']
         title = request.form["title"]
-        content.save(content.filename)
-        content.read()
-        content.seek(0)
-        sound = content.filename
-        print("name of the file that uploaded", content.filename)
-        print("type of the file name", type(content))
-        print("soun is", sound)
+        print("content is ", content)
         #save_text(title, content)
         return render_template("add_text.html")
 
@@ -181,6 +175,18 @@ def delete_text_page():
     if request.method == "GET":
         return render_template("delete_text.html")
     else:
-        title = request.form['title']
-        delete_article(title)
+        option = request.form.get('optradio')
+        selection = request.form['title']
+        print("option is ", option)
+        if option == "text":
+            delete_article(selection)
+        elif option == "user":
+            print("its in user")
+            delete_user(selection)
+        elif option == "audio":
+            delete_audio(selection)
+        elif option == "score":
+            delete_score(selection)
+        else:
+            print("error unknow type")
         return render_template("delete_text.html")

@@ -30,6 +30,13 @@
                 <div class="col left-column">
                     <h4 class="text-left head-left-bot">{{title}}</h4>
                     <h4 class="text-left head-left-bot">{{result}}</h4>
+                    {% if words %}
+                        <h4>These are the words to be careful about</h4>
+                        {% for word in words %}
+                              <li >{{ word }}</li>
+                        {% endfor %}
+                    {% endif %}
+
                     {% if records %}
                             <h4 class="text-left head-left-bot">Previous scores in this article</h4>
                                 {% for id,grade,user_id,content_title in records %}

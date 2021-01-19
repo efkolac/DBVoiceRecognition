@@ -27,9 +27,22 @@
         <form method="post">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration">
-                <h2>Name of the article to delete</h2>
+                <h2>Select which deletion operation you want to do</h2>
             </div>
-                <div class="form-group"><input class="form-control" type="name" name="title" placeholder="Title of the article" required=""></div>
+<div class="radio">
+  <label><input type="radio" name="optradio" value="user">User(mail)</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="optradio" value="text">Article(title)</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="optradio" value="audio">Audio(id)</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="optradio" value="score">Score(id)</label>
+</div>
+
+            <div class="form-group"><input class="form-control" type="name" name="title" placeholder="Information regarding item" required=""></div>
                         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Send</button></div>
 
 </form>
