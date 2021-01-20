@@ -20,8 +20,35 @@
                     <line x1="12" y1="6" x2="12" y2="18"></line>
                     <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
                 </svg></a>
-            <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
-        </div>
+{% if session['user_type'] == 'student' %}
+                 <a href="{{ url_for('texts_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Study</a>
+                 <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                 <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == NULL %}
+                <a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a>
+                <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a>
+          {% endif %}
+                {% if session['user_type'] == 'teacher' %}
+                <a href="{{ url_for('add_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Add article</a>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == 'admin' %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('show_teacher_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Teacher List</a>
+                <a class="dropdown-item" href="{{ url_for('show_student_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Student List</a>
+                <a class="dropdown-item" href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+
+          {% endif %}        </div>
     </nav>
     <section class="welcome" style="padding-right: 1px;">
         <div></div>

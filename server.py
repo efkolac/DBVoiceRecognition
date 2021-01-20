@@ -2,14 +2,8 @@ from flask import Flask
 import views
 import mysql.connector
 from flask_login import LoginManager
-from user import get_user
 
 lm = LoginManager()
-
-
-@lm.user_loader
-def load_user(user_id):
-    return get_user(user_id)
 
 
 def create_app():
@@ -26,6 +20,9 @@ def create_app():
     app.add_url_rule("/contact_us", view_func=views.contact_us_page, methods=["GET", "POST"])
     app.add_url_rule("/update_page", view_func=views.update_page, methods=["GET", "POST"])
     app.add_url_rule("/delete_text", view_func=views.delete_text_page, methods=["GET", "POST"])
+    app.add_url_rule("/show_students", view_func=views.show_student_page, methods=["GET"])
+    app.add_url_rule("/show_teachers", view_func=views.show_teacher_page, methods=["GET"])
+
     return app
 
 

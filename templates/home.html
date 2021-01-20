@@ -37,9 +37,19 @@
                 <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
           {% endif %}
                 {% if session['user_type'] == 'admin' %}
-                <a href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('show_teacher_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Teacher List</a>
+                <a class="dropdown-item" href="{{ url_for('show_student_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Student List</a>
+                <a class="dropdown-item" href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete</a>
+                    </div>
+                </div>
                 <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
                 <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+
           {% endif %}
 
                             </div>
@@ -58,7 +68,7 @@
             </div>
         </div>
         <div class="col-md-6 left-column">
-            <div class="left-col-div" style="{{ url_for('static', filename='assets/img/forsite2.jpg') }}">
+            <div class="left-col-div" style="background: url('https://thumbs.dreamstime.com/b/question-do-you-speak-english-chalkboard-written-pot-pencils-flag-united-states-wooden-75190754.jpg') ">
                 <h1></h1>
             </div>
         </div>

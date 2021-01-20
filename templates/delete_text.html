@@ -20,8 +20,33 @@
                     <line x1="12" y1="6" x2="12" y2="18"></line>
                     <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
                 </svg></a>
-            <div class="collapse navbar-collapse flex-fill justify-content-end" id="navcol-1"><a href="register.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a><a href="login.html" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a></div>
-        </div>
+            {% if session['user_type'] == 'student' %}
+                 <a href="{{ url_for('texts_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Study</a>
+                 <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                 <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == NULL %}
+                <a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a>
+                <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a>
+          {% endif %}
+                {% if session['user_type'] == 'teacher' %}
+                <a href="{{ url_for('add_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Add article</a>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == 'admin' %}
+                <div class="dropdown">
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('show_teacher_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Teacher List</a>
+                <a class="dropdown-item" href="{{ url_for('show_student_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Student List</a>
+                <a class="dropdown-item" href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+
+          {% endif %}        </div>
     </nav>
     <div class="login-clean">
         <form method="post">
@@ -30,7 +55,7 @@
                 <h2>Select which deletion operation you want to do</h2>
             </div>
 <div class="radio">
-  <label><input type="radio" name="optradio" value="user">User(mail)</label>
+  <label><input type="radio" name="optradio" value="user">User(id)</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="optradio" value="text">Article(title)</label>
@@ -46,7 +71,6 @@
                         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Send</button></div>
 
 </form>
-        </form>
     </div>
     <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
         <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>

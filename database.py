@@ -1,6 +1,7 @@
 import mysql.connector
 from difflib import SequenceMatcher
 from essential_generators import DocumentGenerator
+import random
 
 
 def save_content(content_info, content_title, user_id):
@@ -105,7 +106,6 @@ def wrong_words(texts, audio_text):
     return mylist
 
 
-
 def register_user(name, email, pw, degree):
     mydb = mysql.connector.connect(
         host="localhost",
@@ -153,13 +153,40 @@ def update_user(name, email, password, user_id):
         user="root",
         password="12345679",
         database="newdb")
-    #statement = "update people set user_name = '{}', user_password = '{}', email = '{}' where (id = '{}');".format(name, password, email, user_id)
-    statement = "delete from people where (id = '{}');".format(18)
+    statement = "update people set user_name = '{}', user_password = '{}', email = '{}' where (id = '{}');".format(name, password, email, user_id)
+    #statement = "delete from people where (id = '{}');".format(18)
 
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
     return "succesful"
+
+
+def update_text(title, content):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "update texts set data_content = '{}' where (data_title = '{}');".format(content, title)
+
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
+def check_text(title):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from texts where data_title = '{}' ".format(title)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    account = mycursor.fetchone()
+    return account
 
 
 def delete_article(title):
@@ -175,13 +202,13 @@ def delete_article(title):
     return "succesful"
 
 
-def delete_user(mail):
+def delete_user(id):
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
         password="12345679",
         database="newdb")
-    statement = "delete from people where (email = '{}');".format(mail)
+    statement = "delete from people where (id = '{}');".format(id)
     mycursor = mydb.cursor()
     mycursor.execute(statement)
     mydb.commit()
@@ -222,13 +249,66 @@ def database_puffer(i):
         database="newdb")
     gen = DocumentGenerator()
     while i:
-        content = gen.paragraph()[:100]
-        title = gen.word()
-        print("content is ", content)
-        statement = "insert into texts (data_content, data_title)values ('{}','{}');".format(content, title)
+        user_id = i + 10
+        grade = random.random() * 100
+        content_title = "Virgat"
+        statement = "insert into scores (grade, user_id, content_title)values ('{}','{}','{}');".format(grade, user_id, content_title)
         mycursor = mydb.cursor()
         mycursor.execute(statement)
         mydb.commit()
         i = i - 1
     return "score saved"
 
+
+def get_users(type_of_user):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select * from people where (user_type = '{}');".format(type_of_user)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    text = mycursor.fetchall()
+    print("list is ", text)
+    return text
+
+
+def get_max_val(user_id, title):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "select max(grade) from scores where (content_title = '{}' and user_id = '{}');".format(title, user_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    text = mycursor.fetchall()
+    print("list is ", text)
+    return text
+
+
+def delete_audio_on_id(user_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "delete from content where (user_id = '{}');".format(user_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
+
+
+def delete_score_on_id(user_id):
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="12345679",
+        database="newdb")
+    statement = "delete from scores where (user_id = '{}');".format(user_id)
+    mycursor = mydb.cursor()
+    mycursor.execute(statement)
+    mydb.commit()
+    return "succesful"
