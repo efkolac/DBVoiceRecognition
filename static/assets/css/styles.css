@@ -1,0 +1,92 @@
+body {
+  padding-top: 50px;
+}
+
+.welcome {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.product-small {
+  height: 550px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.left-col-div {
+  height: 400px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.h3, h3 {
+  margin-top: 40px;
+}
+
+.h4, h4 {
+  font-weight: 400;
+  margin-top: 100px;
+}
+
+.left-col-div {
+  margin-top: 40px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+gutters.row1 {
+  padding-right: 100px;
+}
+
+img {
+  height: 400px;
+}
+
+svg {
+  font-size: 50px;
+}
+
+.no-gutters > .col, .no-gutters > [class*=col-] {
+  margin-top: 50px;
+}
+
+.h3, h3 {
+  margin-top: 100px;
+}
+
+.footer {
+  margin-bottom: 20px;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+a {
+  position: static;
+  text-align: right;
+}
+
+a {
+}
+
+.h1, h1 {
+  margin-bottom: 70px;
+}
+
+.register-photo {
+  margin-right: 300px;
+  margin-left: 300px;
+  margin-top: 100px;
+}
+
+.login-clean {
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 100px;
+}
+
+margin {
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 100px;
+}
+

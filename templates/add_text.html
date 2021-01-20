@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DatabaseDesign</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Login-Form-Clean.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/ionicons.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Corporate-Footer-Clean.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md fixed-top bg-warning flex-fill">
+        <div class="container"><a href="{{ url_for('home_page') }}"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-a-b">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M3 16v-5.5a2.5 2.5 0 0 1 5 0v5.5m0 -4h-5"></path>
+                    <line x1="12" y1="6" x2="12" y2="18"></line>
+                    <path d="M16 16v-8h3a2 2 0 0 1 0 4h-3m3 0a2 2 0 0 1 0 4h-3"></path>
+                </svg></a>
+{% if session['user_type'] == 'student' %}
+                 <a href="{{ url_for('texts_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Study</a>
+                 <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                 <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == NULL %}
+                <a href="{{ url_for('register_page') }}" style="font-size: 26px;color: rgba(0,0,0,0.9);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Register</a>
+                <a href="{{ url_for('login_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Login</a>
+          {% endif %}
+                {% if session['user_type'] == 'teacher' %}
+                <a href="{{ url_for('add_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Add article</a>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+          {% endif %}
+                {% if session['user_type'] == 'admin' %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ url_for('show_teacher_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Teacher List</a>
+                <a class="dropdown-item" href="{{ url_for('show_student_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Student List</a>
+                <a class="dropdown-item" href="{{ url_for('delete_text_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Delete</a>
+                    </div>
+                </div>
+                <a href="{{ url_for('update_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Update</a>
+                <a href="{{ url_for('logout_page') }}" style="font-size: 26px;color: rgb(0,0,0);margin: 14px;margin-left: 0px;margin-bottom: 0px;margin-top: 0px;">Log out</a>
+
+          {% endif %}        </div>
+    </nav>
+    <div class="login-clean">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration">
+                <h2>Add new article</h2>
+            </div>
+            <input placeholder="title" name="title" class="form-control" />
+            <input placeholder="content" name="content" class="form-control" />
+
+      <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+    <footer class="footer" style="padding-right: 80px;padding-left: 80px;margin-left: 220px;margin-right: 220px;">
+        <h1 class="flex-grow-0" style="color: var(--dark);padding: 10px;padding-left: 19px;background: #d0c7c7;font-size: 16px;margin: 0px;padding-top: 0px;margin-top: 0px;padding-right: 0px;">2021 Istanbul Technical University Database Systems&nbsp;<a href="ContanctUs.html" style="margin: 220px;background: #d0c7c7;color: var(--dark);height: 0px;padding-top: 0px;">Contact Us</a></h1>
+    </footer>
+                <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+                <script src="{{ url_for('static', filename='assets/js/smart-forms.min.js') }}"></script>
+</body>
+
+</html>
